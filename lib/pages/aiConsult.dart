@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meongsang/pages/sympathy.dart';
 import 'package:meongsang/services/openAiService.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -12,8 +13,8 @@ class AiConsult extends StatefulWidget {
 }
 
 class _AiConsultState extends State<AiConsult> {
-  TextEditingController con = TextEditingController();
-
+  TextEditingController _con = TextEditingController();
+  bool _btnVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,41 +45,44 @@ class _AiConsultState extends State<AiConsult> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextField(
-                  controller: con,
+                  controller: _con,
                   onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
-
+                  onChanged: (text){
+                    setState(() {
+                      if(text.isEmpty){
+                        _btnVisible = false;
+                      }
+                      else{
+                        _btnVisible = true;
+                      }
+                    });
+                  },
                 ),
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    OpenAIService model = OpenAIService();
-                    String response = await model.createModel(con.text);
-                    List<String> parts = response.split('/');
-                    print(response[response.length-1]);
-                    ///1:분노, /2:슬픔, /3:행복, /4:판단이 잘 안됨
-                    if(parts.last == "1"){
-                      print('분노 페이지 이동');
-                    }
-                    else if(parts.last == "2"){
-                      print('슬픔 페이지 이동');
-                    }
-                    else if(parts.last == "3"){
-                      print('행복 페이지 이동');
-                    }
-                    else{
-                      print('판단불가 페이지 이동' + parts.last);
-                    }
+              Visibility(
+                visible: _btnVisible,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      OpenAIService model = OpenAIService();
+                      String response = await model.createModel(_con.text);
+                      List<String> content = response.split('/');
+                      String emotion = content.last;
+                      content.removeLast();
+                      ///1:분노, /2:슬픔, /3:행복, /4:판단불가"
+                      Get.to(Sympathy(content: content, emotion: emotion));
 
-                  },
-                  child: Text("확인", style: TextStyle(color: Colors.black)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffFFB6B6),
-                    overlayColor: Color(0xffABFF56)
+
+                    },
+                    child: Text("확인", style: TextStyle(color: Colors.black)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xffFFB6B6),
+                      overlayColor: Color(0xffABFF56)
+                    ),
+
                   ),
-
                 ),
               ),
           ],
