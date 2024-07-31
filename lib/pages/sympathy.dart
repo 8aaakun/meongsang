@@ -1,5 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meongsang/pages/home.dart';
 
 class Sympathy extends StatefulWidget {
   final List<String> content;
@@ -17,8 +19,8 @@ class _SympathyState extends State<Sympathy> {
   bool _btnAni = false;
   Map _emotionToSentence = {
     "1": "'분노'를 주제로 명상할까요?",
-    "2": "'슬픔'를 주제로 명상할까요?",
-    "3": "'행복'를 주제로 명상할까요?",
+    "2": "'슬픔'을 주제로 명상할까요?",
+    "3": "'행복'을 주제로 명상할까요?",
     "4": "명상할까요?"
   };
 
@@ -61,13 +63,33 @@ class _SympathyState extends State<Sympathy> {
                 ),
                 Container(
                   alignment: Alignment.bottomRight,
-                  child: FadeIn(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("네!"),
-                    ),
-                    animate: _btnAni,
-                    duration: Duration(seconds: 2),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FadeIn(
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: ElevatedButton(
+                            onPressed: () {Get.offAll(Home());},
+                            child: Text("아니요"),
+                          ),
+                        ),
+                        animate: _btnAni,
+                        duration: Duration(seconds: 2),
+                      ),
+                      FadeIn(
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text("네!"),
+                          ),
+                        ),
+                        animate: _btnAni,
+                        duration: Duration(seconds: 2),
+                      ),
+
+                    ],
                   ),
                 )
               ],
