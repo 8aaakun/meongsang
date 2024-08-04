@@ -28,8 +28,9 @@ class _RecomendState extends State<Recomend> {
   void _randomSubject(){
     final _random = Random();
     setState(() {
-      _subject = _subjects[_random.nextInt(3).toInt()];
-      _mean = _means[_random.nextInt(3).toInt()];
+      int num = _random.nextInt(3).toInt();
+      _subject = _subjects[num];
+      _mean = _means[num];
     });
 
   }
