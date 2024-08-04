@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/home.dart';
+import 'package:meongsang/pages/meditation.dart';
 
 class Sympathy extends StatefulWidget {
   final List<String> content;
@@ -75,18 +76,21 @@ class _SympathyState extends State<Sympathy> {
                           ),
                         ),
                         animate: _btnAni,
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       ),
                       FadeIn(
-                        child: Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text("네!"),
+                        child: GestureDetector(
+                          onTap: (){Get.to(Meditation());},
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Text("네!"),
+                            ),
                           ),
                         ),
                         animate: _btnAni,
-                        duration: Duration(seconds: 2),
+                        duration: const Duration(seconds: 2),
                       ),
 
                     ],

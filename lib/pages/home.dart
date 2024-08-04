@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/meditation.dart';
+import 'package:meongsang/pages/recomend.dart';
 import 'aiConsult.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -55,10 +56,15 @@ class Home extends StatelessWidget {
             ),
 
             GestureDetector(
-              onTap: (){Get.to(Meditation());},
+              onTap: (){Get.to(Recomend());},
                 child: Menu(text: "명상 주제 추천받기")
             ),
-            Menu(text: "머리 비우기"),
+
+            GestureDetector(
+                onTap: (){Get.to(Meditation());},
+                child: Menu(text: "머리 비우기"
+                )
+            ),
 
             Padding(
               padding:
