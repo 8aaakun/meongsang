@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:meongsang/pages/meditation.dart';
 import 'package:meongsang/pages/recomend.dart';
 import 'aiConsult.dart';
+import 'meongsangRecordsPage.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -66,36 +67,39 @@ class Home extends StatelessWidget {
                 )
             ),
 
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 100.0, vertical: 40),
-              child: Container(
-                  child: Center(
-                      child: Text(
-                    "명상 기록 보기",
-                    style:
-                        TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
-                  )),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25.0),
-                      border: Border.all(color: Colors.black, width: 5),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xffFFB6B6),
-                          Color(0xffF4C0AA),
-                          Color(0xffABFF56)
-                        ],
-                      ),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 0,
-                          blurRadius: 4.0,
-                          offset: Offset(0, 7), // changes position of shadow
+            GestureDetector(
+              onTap: () { Get.to(MeongsangRecordsPage(), transition: Transition.fadeIn); },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 100.0, vertical: 40),
+                child: Container(
+                    child: Center(
+                        child: Text(
+                      "명상 기록 보기",
+                      style:
+                          TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
+                    )),
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25.0),
+                        border: Border.all(color: Colors.black, width: 5),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xffFFB6B6),
+                            Color(0xffF4C0AA),
+                            Color(0xffABFF56)
+                          ],
                         ),
-                      ])),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.7),
+                            spreadRadius: 0,
+                            blurRadius: 4.0,
+                            offset: Offset(0, 7), // changes position of shadow
+                          ),
+                        ])),
+              ),
             ),
           ]),
         ),
