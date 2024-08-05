@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/meditation.dart';
+import 'package:meongsang/pages/settingScreen.dart';
 
 class Recomend extends StatefulWidget {
   const Recomend({super.key});
@@ -22,15 +23,12 @@ class _RecomendState extends State<Recomend> {
     "[명사] 슬픈 마음이나 느낌.",
     "[명사] 복된 좋은 운수."
   ];
-  late String _subject;
-  late String _mean;
+  late int _subjectNum;
 
   void _randomSubject(){
     final _random = Random();
     setState(() {
-      int num = _random.nextInt(3).toInt();
-      _subject = _subjects[num];
-      _mean = _means[num];
+      _subjectNum = _random.nextInt(3).toInt();
     });
 
   }
@@ -81,12 +79,12 @@ class _RecomendState extends State<Recomend> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              _subject,
+                              _subjects[_subjectNum],
                               style:
                               TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 30, color: Colors.white),
                             ),
                             Text(
-                              _mean,
+                              _means[_subjectNum],
                               style:
                               TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 15, color: Colors.white),
                             ),
@@ -129,7 +127,7 @@ class _RecomendState extends State<Recomend> {
               ),
 
               GestureDetector(
-                onTap: (){Get.to(Meditation());},
+                onTap: (){Get.to(SettingsScreen(subject: (_subjectNum+1).toString(),));},
                 child: Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),

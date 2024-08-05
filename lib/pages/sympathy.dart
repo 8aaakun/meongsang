@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/home.dart';
 import 'package:meongsang/pages/meditation.dart';
+import 'package:meongsang/pages/settingScreen.dart';
 
 class Sympathy extends StatefulWidget {
   final List<String> content;
@@ -80,7 +81,7 @@ class _SympathyState extends State<Sympathy> {
                       ),
                       FadeIn(
                         child: GestureDetector(
-                          onTap: (){Get.to(Meditation());},
+                          onTap: (){Get.to(SettingsScreen(subject: widget.emotion as String,));},
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
                             child: ElevatedButton(
