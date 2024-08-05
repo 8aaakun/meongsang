@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+import 'meditation.dart';
 
+class SettingsScreen extends StatefulWidget {
+  //SettingsScreen({Key? key}) : super(key: key);
+  final String subject;
+  SettingsScreen({required this.subject});
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -123,10 +126,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ])),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(Meditation(meditateTime:meditateTime, subject: widget.subject,));
+                  },
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 170.0),
+                  const EdgeInsets.symmetric(horizontal: 140.0),
                   child: Container(
                       child: Center(
                           child: Text(

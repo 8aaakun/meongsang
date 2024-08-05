@@ -5,7 +5,10 @@ import 'package:siri_wave/siri_wave.dart';
 import '../customWidgets/wave.dart';
 
 class Meditation extends StatefulWidget {
-  const Meditation({super.key});
+  //const Meditation({super.key});
+  final int meditateTime;
+  final String subject;
+  Meditation({required this.meditateTime, required this.subject});
 
   @override
   State<Meditation> createState() => _MeditationState();
@@ -48,7 +51,7 @@ class _MeditationState extends State<Meditation> {
             child: CircularCountDownTimer(
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,
-              duration: 90,
+              duration: widget.meditateTime*60,
               fillColor: Colors.black,
               ringColor: const Color(0xffD9D9D9),
               isReverseAnimation: true,

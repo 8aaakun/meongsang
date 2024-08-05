@@ -63,7 +63,7 @@ class Home extends StatelessWidget {
             ),
 
             GestureDetector(
-                onTap: (){Get.to(Meditation());},
+                onTap: (){Get.to(Meditation(meditateTime: 10, subject: "1",));},
                 child: Menu(text: "머리 비우기"
                 )
             ),
