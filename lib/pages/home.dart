@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meongsang/pages/settingScreen.dart';
 import 'aiConsult.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -53,7 +54,11 @@ class Home extends StatelessWidget {
                 child: Menu(text: "AI 상담")
             ),
             Menu(text: "명상 주제 추천받기"),
-            Menu(text: "머리 비우기"),
+            GestureDetector(
+                onTap: () {Get.to(SettingsScreen(), transition: Transition.fadeIn);},
+                child: Menu(text: "머리 비우기")
+            ),
+
 
             Padding(
               padding:
