@@ -127,7 +127,7 @@ class _RecomendState extends State<Recomend> {
               ),
 
               GestureDetector(
-                onTap: (){Get.to(SettingsScreen(subject: _subjectNum.toString(),));},
+                onTap: (){Get.to(SettingsScreen(subject: (_subjectNum+1).toString(),));},
                 child: Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),

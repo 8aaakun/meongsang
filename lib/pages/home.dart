@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/meditation.dart';
 import 'package:meongsang/pages/recomend.dart';
-import 'package:meongsang/pages/settingScreen.dart';
 import 'aiConsult.dart';
 import 'meongsangRecordsPage.dart';
 class Home extends StatelessWidget {

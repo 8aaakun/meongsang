@@ -44,6 +44,8 @@ dependencies:
   circular_countdown_timer: ^0.2.4
   siri_wave: ^2.0.0+1
   numberpicker: ^2.1.2
+  flutter_tts: ^4.0.2
+  just_audio: ^0.9.37
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/config/.env
+    - assets/bgm/
 
   fonts:
     - family: GmarketSansTTF

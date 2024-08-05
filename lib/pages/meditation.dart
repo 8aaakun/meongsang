@@ -1,7 +1,8 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:siri_wave/siri_wave.dart';
-
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:meongsang/Meditations/meditations.dart';
 import '../customWidgets/wave.dart';
 
 class Meditation extends StatefulWidget {
@@ -15,6 +16,70 @@ class Meditation extends StatefulWidget {
 }
 
 class _MeditationState extends State<Meditation> {
+  final Meditations _meditations = Meditations();
+  List<String> _currentMeditation = [];
+  final FlutterTts _tts = FlutterTts();
+  final _player = AudioPlayer();
+  String _mediText = "";
+
+  int _curIdx = 0;
+  Future _startSpeaking()async{
+    _curIdx = 0;
+    await _speakCurrentIndex();
+    _player.dispose();
+  }
+
+  Future _speakCurrentIndex() async{
+  if (_curIdx < _currentMeditation.length) {
+    await _tts.speak(_currentMeditation[_curIdx]);
+    setState(() {
+      _mediText = _currentMeditation[_curIdx];
+    });
+  }
+}
+
+  void _onSpeakComplete() {
+    _curIdx++;
+    if (_curIdx < _currentMeditation.length) {
+      _speakCurrentIndex();
+    }
+  }
+
+  void _setAudio(){
+    _player.setLoopMode(LoopMode.one);
+    if(widget.subject == "1")
+      _player.setAsset("assets/bgm/Drifting at 432 Hz - Unicorn Heads.mp3");
+    else if(widget.subject == "2")
+      _player.setAsset("assets/bgm/The Inner Sound - Jesse Gallagher.mp3");
+    else if(widget.subject == "3")
+      _player.setAsset("assets/bgm/Venkatesananda - Jesse Gallagher.mp3");
+    else
+      _player.setAsset("assets/bgm/Spirit of Fire - Jesse Gallagher.mp3");
+  }
+
+  void  _playAudio(){
+    _player.play();
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    _currentMeditation = _meditations.getMeditation(widget.subject);
+    _tts.setLanguage("ko-KR");
+    _tts.setSpeechRate(0.4);
+    _tts.setCompletionHandler((){
+      _onSpeakComplete();
+    });
+    _setAudio();
+  }
+
+  @override
+  void dispose() {
+    _tts.stop();
+    _player.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +114,10 @@ class _MeditationState extends State<Meditation> {
           Center(
             heightFactor: 0.8,
             child: CircularCountDownTimer(
+              onStart: ()async{
+                //_playAudio();
+                await _startSpeaking();
+              },
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,
               duration: widget.meditateTime*60,
@@ -81,9 +150,10 @@ class _MeditationState extends State<Meditation> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
             child: Container(
+              padding: EdgeInsets.all(10),
                 child: Center(
                     child: Text(
-                  "준비가 되었다면 눈을 감습니다.",
+                  _mediText,
                   style: TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
                 )),
                 height: MediaQuery.of(context).size.height / 4.5,
