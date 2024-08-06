@@ -124,7 +124,7 @@ class Menu extends StatelessWidget {
             text,
             style: TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
           )),
-          height: 100,
+          height: MediaQuery.of(context).size.height/7.5,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25.0),
               border: Border.all(color: Colors.black, width: 5),
