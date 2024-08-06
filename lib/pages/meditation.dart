@@ -101,7 +101,7 @@ class _MeditationState extends State<Meditation> {
         ),
         leading: IconButton(
           onPressed: () {
-            Get.offAll(Home());
+            Get.offAll(Home(), transition: Transition.fadeIn);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -189,7 +189,7 @@ class _MeditationState extends State<Meditation> {
                             child: Center(
                               child: ElevatedButton(
                                   onPressed: (){
-                                    Get.to(AddMemo(subject: widget.subject,));
+                                    Get.to(AddMemo(subject: widget.subject,), transition: Transition.fadeIn);
                                   },
                                   child: Text("명상기록 남기기")
                               ),

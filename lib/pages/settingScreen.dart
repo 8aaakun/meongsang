@@ -127,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.to(Meditation(meditateTime:meditateTime, subject: widget.subject,));
+                  Get.to(Meditation(meditateTime:meditateTime, subject: widget.subject,), transition: Transition.fadeIn);
                   },
                 child: Padding(
                   padding:

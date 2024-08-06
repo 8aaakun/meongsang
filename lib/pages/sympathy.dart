@@ -2,7 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meongsang/pages/home.dart';
-import 'package:meongsang/pages/meditation.dart';
 import 'package:meongsang/pages/settingScreen.dart';
 
 class Sympathy extends StatefulWidget {
@@ -72,7 +71,7 @@ class _SympathyState extends State<Sympathy> {
                         child: Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
-                            onPressed: () {Get.offAll(Home());},
+                            onPressed: () {Get.offAll(Home(), transition: Transition.fadeIn);},
                             child: Text("아니요"),
                           ),
                         ),
@@ -84,7 +83,7 @@ class _SympathyState extends State<Sympathy> {
                           padding: const EdgeInsets.all(3.0),
                           child: ElevatedButton(
                             onPressed: (){
-                              Get.to(SettingsScreen(subject: widget.emotion.toString()));
+                              Get.to(SettingsScreen(subject: widget.emotion.toString()), transition: Transition.fadeIn);
                             },
                             child: Text("네!"),
                           ),

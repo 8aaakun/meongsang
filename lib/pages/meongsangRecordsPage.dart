@@ -76,7 +76,7 @@ class _MeongsangRecordsPageState extends State<MeongsangRecordsPage> {
                     title: Text(record['subject']),
                     subtitle: Text(record['date']),
                     onTap: () {
-                      Get.to(RecordDetailPage(record: record));
+                      Get.to(RecordDetailPage(record: record), transition: Transition.fadeIn);
                     },
                   ),
                 ));

@@ -73,7 +73,7 @@ class _AiConsultState extends State<AiConsult> {
                         String emotion = content.last;
                         content.removeLast();
                         ///1:분노, /2:슬픔, /3:행복, /4:판단불가"
-                        Get.to(Sympathy(content: content, emotion: emotion));
+                        Get.to(Sympathy(content: content, emotion: emotion), transition: Transition.fadeIn);
                       },
                       child: Text("확인", style: TextStyle(color: Colors.black)),
                       style: ElevatedButton.styleFrom(

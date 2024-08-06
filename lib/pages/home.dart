@@ -57,12 +57,12 @@ class Home extends StatelessWidget {
             ),
 
             GestureDetector(
-              onTap: (){Get.to(Recomend());},
+              onTap: (){Get.to(Recomend(), transition: Transition.fadeIn);},
                 child: Menu(text: "명상 주제 추천받기")
             ),
 
             GestureDetector(
-                onTap: (){Get.to(Meditation(meditateTime: 10, subject: "4",));},
+                onTap: (){Get.to(Meditation(meditateTime: 10, subject: "4",), transition: Transition.fadeIn);},
                 child: Menu(text: "머리 비우기"
                 )
             ),
