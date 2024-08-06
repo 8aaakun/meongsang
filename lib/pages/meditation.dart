@@ -1,14 +1,18 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:meongsang/Meditations/meditations.dart';
+import 'package:meongsang/pages/addMemo.dart';
+import 'package:meongsang/pages/home.dart';
 import '../customWidgets/wave.dart';
 
 class Meditation extends StatefulWidget {
   //const Meditation({super.key});
   final int meditateTime;
   final String subject;
+
   Meditation({required this.meditateTime, required this.subject});
 
   @override
@@ -21,53 +25,59 @@ class _MeditationState extends State<Meditation> {
   final FlutterTts _tts = FlutterTts();
   final _player = AudioPlayer();
   String _mediText = "";
+  bool _goAddMemoBtn = false;
 
   int _curIdx = 0;
-  Future _startSpeaking()async{
+
+  Future _startSpeaking() async {
     _curIdx = 0;
     await _speakCurrentIndex();
-    _player.dispose();
   }
 
-  Future _speakCurrentIndex() async{
-  if (_curIdx < _currentMeditation.length) {
-    await _tts.speak(_currentMeditation[_curIdx]);
-    setState(() {
-      _mediText = _currentMeditation[_curIdx];
-    });
+  Future _speakCurrentIndex() async {
+    if (_curIdx < _currentMeditation.length) {
+      await _tts.speak(_currentMeditation[_curIdx]);
+      setState(() {
+        _mediText = _currentMeditation[_curIdx];
+      });
+    }
   }
-}
 
   void _onSpeakComplete() {
     _curIdx++;
+    if (_curIdx == _currentMeditation.length) {
+      setState(() {
+        _mediText = "";
+      });
+    }
     if (_curIdx < _currentMeditation.length) {
       _speakCurrentIndex();
     }
   }
 
-  void _setAudio(){
+  void _setAudio() {
     _player.setLoopMode(LoopMode.one);
-    if(widget.subject == "1")
+    if (widget.subject == "1")
       _player.setAsset("assets/bgm/Drifting at 432 Hz - Unicorn Heads.mp3");
-    else if(widget.subject == "2")
+    else if (widget.subject == "2")
       _player.setAsset("assets/bgm/The Inner Sound - Jesse Gallagher.mp3");
-    else if(widget.subject == "3")
+    else if (widget.subject == "3")
       _player.setAsset("assets/bgm/Venkatesananda - Jesse Gallagher.mp3");
     else
       _player.setAsset("assets/bgm/Spirit of Fire - Jesse Gallagher.mp3");
   }
 
-  void  _playAudio(){
+  void _playAudio() {
     _player.play();
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _currentMeditation = _meditations.getMeditation(widget.subject);
     _tts.setLanguage("ko-KR");
-    _tts.setSpeechRate(0.4);
-    _tts.setCompletionHandler((){
+    _tts.setSpeechRate(1);
+    _tts.setCompletionHandler(() {
       _onSpeakComplete();
     });
     _setAudio();
@@ -85,9 +95,16 @@ class _MeditationState extends State<Meditation> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-            child: Image(
-          image: AssetImage('assets/images/logo.png'),
-        )),
+          child: Image(
+            image: AssetImage('assets/images/logo.png'),
+          ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Get.offAll(Home());
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,13 +131,21 @@ class _MeditationState extends State<Meditation> {
           Center(
             heightFactor: 0.8,
             child: CircularCountDownTimer(
-              onStart: ()async{
-                //_playAudio();
+              onStart: () async {
+                _playAudio();
                 await _startSpeaking();
+              },
+              onComplete: () {
+                _tts.speak("명상이 종료되었습니다. 명상 기록을 남기러 가시겠습니까?");
+                _player.dispose();
+                setState(() {
+                  _goAddMemoBtn=true;
+                });
               },
               width: MediaQuery.of(context).size.width / 2,
               height: MediaQuery.of(context).size.height / 2,
-              duration: widget.meditateTime*60,
+              duration: 60,
+              //widget.meditateTime*60,
               fillColor: Colors.black,
               ringColor: const Color(0xffD9D9D9),
               isReverseAnimation: true,
@@ -150,12 +175,27 @@ class _MeditationState extends State<Meditation> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
             child: Container(
-              padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(10),
                 child: Center(
-                    child: Text(
-                  _mediText,
-                  style: TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
-                )),
+                    child: Stack(
+                        children: [
+                  Text(
+                    _mediText,
+                    style:
+                        TextStyle(fontFamily: 'GmarketSansTTF', fontSize: 17),
+                  ),
+                          Visibility(
+                            visible: _goAddMemoBtn,
+                            child: Center(
+                              child: ElevatedButton(
+                                  onPressed: (){
+                                    Get.to(AddMemo(subject: widget.subject,));
+                                  },
+                                  child: Text("명상기록 남기기")
+                              ),
+                            ),
+                          )
+                ])),
                 height: MediaQuery.of(context).size.height / 4.5,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25.0),

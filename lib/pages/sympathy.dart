@@ -80,14 +80,13 @@ class _SympathyState extends State<Sympathy> {
                         duration: const Duration(seconds: 2),
                       ),
                       FadeIn(
-                        child: GestureDetector(
-                          onTap: (){Get.to(SettingsScreen(subject: widget.emotion as String,));},
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text("네!"),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: ElevatedButton(
+                            onPressed: (){
+                              Get.to(SettingsScreen(subject: widget.emotion.toString()));
+                            },
+                            child: Text("네!"),
                           ),
                         ),
                         animate: _btnAni,

@@ -44,9 +44,16 @@ class _RecomendState extends State<Recomend> {
     return Scaffold(
         appBar: AppBar(
           title: const Center(
-              child: Image(
-            image: AssetImage('assets/images/logo.png'),
-          )),
+            child: Image(
+              image: AssetImage('assets/images/logo.png'),
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
         ),
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
