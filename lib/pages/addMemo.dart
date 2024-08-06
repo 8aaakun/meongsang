@@ -269,7 +269,7 @@ class _AddMemoState extends State<AddMemo> {
               child: Text('홈화면으로 이동', style: TextStyle(fontFamily: 'GmarketSansTTF')),
               onPressed: () {
                 Navigator.of(context).pop(); // 두 번째 다이얼로그 닫기
-                Get.to(Home(), transition: Transition.fadeIn); // 홈화면으로 이동
+                Get.offAll(Home(), transition: Transition.fadeIn); // 홈화면으로 이동
               },
             ),
           ],
